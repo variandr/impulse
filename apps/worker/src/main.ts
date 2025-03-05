@@ -1,8 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { WorkerModule } from './worker.module';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(WorkerModule);
-  await app.listen(process.env.port ?? 3000);
+  const logger = new Logger();
+  try {
+    await NestFactory.createApplicationContext(WorkerModule);
+  } catch (error) {
+    logger.error('Error starting Worker service:', error);
+  }
 }
+
 bootstrap();

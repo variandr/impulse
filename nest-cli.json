@@ -1,14 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/impulseteam-task/src",
+  "sourceRoot": "apps/api/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": true,
-    "tsConfigPath": "apps/impulseteam-task/tsconfig.app.json"
+    "webpack": true
   },
   "monorepo": true,
-  "root": "apps/impulseteam-task",
   "projects": {
     "api": {
       "type": "application",
@@ -37,13 +35,13 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
-    "http-client": {
+    "impulse": {
       "type": "library",
-      "root": "libs/http-client",
+      "root": "libs/impulse",
       "entryFile": "index",
-      "sourceRoot": "libs/http-client/src",
+      "sourceRoot": "libs/impulse/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/http-client/tsconfig.lib.json"
+        "tsConfigPath": "libs/impulse/tsconfig.lib.json"
       }
     },
     "worker": {

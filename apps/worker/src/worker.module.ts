@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { WorkerController } from './worker.controller';
-import { WorkerService } from './worker.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ImpulseModule } from '@libs/impulse';
+import { DatabaseModule } from '@libs/database';
+import { CampaignReportsJob } from './jobs';
 
 @Module({
-  imports: [],
-  controllers: [WorkerController],
-  providers: [WorkerService],
+  imports: [DatabaseModule, ImpulseModule, ScheduleModule.forRoot()],
+  providers: [CampaignReportsJob],
 })
 export class WorkerModule {}

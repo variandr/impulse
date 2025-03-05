@@ -1,0 +1,11 @@
+.gitignore
+.git
+.dockerignore
+
+node_modules
+
+*.env
+
+eslint.config.ts
+.prettierrc
+README.md

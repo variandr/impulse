@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ApiController } from './api.controller';
-import { ApiService } from './api.service';
+import { DatabaseModule } from '@libs/database';
+import { ImpulseModule } from '@libs/impulse';
+import { CampaignReportsController, CampaignReportsService } from './campaign-reports';
 
 @Module({
-  imports: [],
-  controllers: [ApiController],
-  providers: [ApiService],
+  imports: [DatabaseModule, ImpulseModule],
+  controllers: [CampaignReportsController],
+  providers: [CampaignReportsService],
 })
 export class ApiModule {}

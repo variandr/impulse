@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
+    "target": "esnext",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -17,24 +18,25 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     "paths": {
-      "@app/common": [
+      "@libs/common": [
         "libs/common/src"
       ],
-      "@app/common/*": [
+      "@libs/common/*": [
         "libs/common/src/*"
       ],
-      "@app/database": [
+      "@libs/database": [
         "libs/database/src"
       ],
-      "@app/database/*": [
+      "@libs/database/*": [
         "libs/database/src/*"
       ],
-      "@app/http-client": [
-        "libs/http-client/src"
+      "@libs/impulse": [
+        "libs/impulse/src"
       ],
-      "@app/http-client/*": [
-        "libs/http-client/src/*"
+      "@libs/impulse/*": [
+        "libs/impulse/src/*"
       ]
     }
   }
