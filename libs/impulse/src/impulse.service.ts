@@ -1,13 +1,14 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { catchError, expand, firstValueFrom, map, of, reduce, retry, takeWhile, throwError } from 'rxjs';
 import { AxiosError, AxiosResponse } from 'axios';
-import { HttpService } from '@nestjs/axios';
-import * as process from 'node:process';
-import { CampaignResponse, FailResponse, SuccessResponse } from './impulse.interface';
-import { EventName, ImpulseUrl } from './impulse.enum';
-import { CampaignReport } from '@libs/database';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
+import { catchError, expand, firstValueFrom, map, of, reduce, retry, takeWhile, throwError } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+
+import { CampaignReport } from '@libs/database';
+
+import { EventName, ImpulseUrl } from './impulse.enum';
+import { CampaignResponse, FailResponse, SuccessResponse } from './impulse.interface';
 
 @Injectable()
 export class ImpulseService {

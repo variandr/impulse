@@ -1,5 +1,6 @@
-import { IsDate, IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsDate, IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
+
 import { EventName } from '@libs/impulse';
 
 export class CampaignReportsParamsDto {

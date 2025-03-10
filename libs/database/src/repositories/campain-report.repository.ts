@@ -1,11 +1,13 @@
+import { chunk } from 'lodash';
 import { Repository } from 'typeorm';
-import { CampaignReport } from '../entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BaseRepository } from './base.repository';
 
-import { chunk } from 'lodash';
 import { EventName } from '@libs/impulse';
+
+import { CampaignReport } from '../entities';
+
+import { BaseRepository } from './base.repository';
 
 @Injectable()
 export class CampaignReportsRepository extends BaseRepository<CampaignReport> {

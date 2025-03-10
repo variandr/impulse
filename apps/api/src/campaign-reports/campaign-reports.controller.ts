@@ -1,7 +1,9 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+
+import { AuthGuard } from '@libs/common';
+
 import { CampaignReportsService } from './campaign-reports.service';
 import { CampaignReportsFetchDto, CampaignReportsParamsDto } from './dto';
-import { AuthGuard } from '@libs/common';
 
 @Controller('campaign-reports')
 @UseGuards(AuthGuard)

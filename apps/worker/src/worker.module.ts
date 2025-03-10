@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ImpulseModule } from '@libs/impulse';
+
 import { DatabaseModule } from '@libs/database';
+import { ImpulseModule } from '@libs/impulse';
+
 import { CampaignReportsJob } from './jobs';
 
 @Module({

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
+
 import { CampaignReport, CampaignReportsRepository } from '@libs/database';
 import { EventName, ImpulseService } from '@libs/impulse';
 

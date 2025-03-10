@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { CampaignReportsFetchDto, CampaignReportsParamsDto } from './dto';
+
 import { CampaignReportsRepository } from '@libs/database';
 import { EventName, ImpulseService } from '@libs/impulse';
+
+import { CampaignReportsFetchDto, CampaignReportsParamsDto } from './dto';
 
 @Injectable()
 export class CampaignReportsService {

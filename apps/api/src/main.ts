@@ -1,8 +1,10 @@
-import { NestFactory } from '@nestjs/core';
-import { ApiModule } from './api.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
 import { rateLimit } from 'express-rate-limit';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+
 import { ErrorInterceptor, SecurityMiddleware } from '@libs/common';
+
+import { ApiModule } from './api.module';
 
 async function bootstrap() {
   const logger = new Logger();
