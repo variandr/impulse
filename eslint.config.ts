@@ -22,7 +22,7 @@ export default ts.config(
         'error',
         {
           groups: [
-            ['^\\w', '^@nestjs'],
+            ['^\\w', '^@nestjs', '^@keyv'],
             ['^@apps(/.*|$)'],
             ['^@libs(/.*|$)'],
             ['^\\u0000'],

@@ -1,4 +1,5 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { CacheInterceptor } from '@nestjs/cache-manager';
+import { Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 
 import { AuthGuard } from '@libs/common';
 
@@ -7,6 +8,7 @@ import { CampaignReportsFetchDto, CampaignReportsParamsDto } from './dto';
 
 @Controller('campaign-reports')
 @UseGuards(AuthGuard)
+@UseInterceptors(CacheInterceptor)
 export class CampaignReportsController {
   constructor(private readonly apiService: CampaignReportsService) {}
 

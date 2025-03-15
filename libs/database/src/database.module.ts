@@ -1,26 +1,26 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ConfigModule, ConfigService, Environment } from '@libs/config';
 
 import { CampaignReport } from './entities';
 import { CampaignReportsRepository } from './repositories';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USER'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_DB'),
+        host: configService.db.host,
+        port: configService.db.port,
+        username: configService.db.username,
+        password: configService.db.password,
+        database: configService.db.database,
         entities: [__dirname + '/entities/*.entity.ts'],
         migrations: [__dirname + '/migrations/*-migration.ts'],
         migrationsTableName: 'migrations',
-        logging: configService.get('NODE_ENV') === 'localhost',
+        logging: configService.app.environment === Environment.DEVELOPMENT,
         synchronize: false,
         autoLoadEntities: true,
       }),

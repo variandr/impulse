@@ -5,6 +5,7 @@ import { catchError, expand, firstValueFrom, map, of, reduce, retry, takeWhile, 
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 
+import { ConfigService } from '@libs/config';
 import { CampaignReport } from '@libs/database';
 
 import { EventName, ImpulseUrl } from './impulse.enum';
@@ -13,9 +14,11 @@ import { CampaignResponse, FailResponse, SuccessResponse } from './impulse.inter
 @Injectable()
 export class ImpulseService {
   private readonly logger = new Logger(ImpulseService.name);
-  private readonly headers = { 'x-api-key': process.env.IMPULSE_API_KEY };
 
-  constructor(private readonly http: HttpService) {}
+  constructor(
+    private readonly http: HttpService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async getCampaignReports(
     startDate: string,
@@ -23,20 +26,20 @@ export class ImpulseService {
     eventName: EventName,
     url?: string,
   ): Promise<CampaignReport[]> {
-    const defaultUrl = `${process.env.IMPULSE_API_URL}${ImpulseUrl.CAMPAIGN_REPORTS}?from_date=${startDate}&to_date=${endDate}&event_name=${eventName}&take=100`;
+    const defaultUrl = `${this.configService.impulse.apiUrl}${ImpulseUrl.CAMPAIGN_REPORTS}?from_date=${startDate}&to_date=${endDate}&event_name=${eventName}&take=100`;
     const fetchUrl = url || defaultUrl;
 
     this.logger.log(`Request: ${startDate} - ${endDate}, eventName: ${eventName}, url: ${fetchUrl}`);
 
     const csv = await firstValueFrom(
-      this.http.get(fetchUrl, { headers: this.headers }).pipe(
+      this.http.get(fetchUrl, { headers: this.getHeaders() }).pipe(
         retry(1),
         map((res: AxiosResponse<SuccessResponse<CampaignResponse>>) => res.data.data),
         expand((data: CampaignResponse) => {
           if (!data.pagination?.next) return of(null);
 
           this.logger.log(`Request: ${startDate} - ${endDate}, eventName: ${eventName}, url: ${data.pagination.next}`);
-          return this.http.get(data.pagination.next, { headers: this.headers }).pipe(
+          return this.http.get(data.pagination.next, { headers: this.getHeaders() }).pipe(
             retry(1),
             map((res: AxiosResponse<SuccessResponse<CampaignResponse>>) => res.data.data),
             catchError((error: AxiosError<FailResponse>) => {
@@ -83,5 +86,9 @@ export class ImpulseService {
     }
 
     return upsertData;
+  }
+
+  private getHeaders(): Record<string, string> {
+    return { 'x-api-key': this.configService.impulse.apiKey };
   }
 }
